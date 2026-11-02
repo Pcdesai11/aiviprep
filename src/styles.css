@@ -16,10 +16,47 @@
   --warn: #6d4e22;
   --editor: #fffdf9;
   --gutter: #f3eee6;
-  --serif: "Literata", "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
-  --sans: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --gutter-ink: #8d8276;
+  --wash: rgba(255, 252, 247, 0.55);
+  --selected: rgba(255, 252, 247, 0.78);
+  --on-accent: #f7fbfa;
+  --solution-bg: #241f1a;
+  --solution-ink: #f4efe6;
+  --glow: rgba(255, 252, 247, 0.8);
+  --selection: #d5ebe4;
+  --serif: "Fraunces", "Iowan Old Style", Palatino, Georgia, serif;
+  --sans: "Figtree", "Avenir Next", "Segoe UI", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --shadow: 0 1px 0 rgba(48, 36, 20, 0.04);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141210;
+  --ink: #f4efe6;
+  --muted: #cfc6ba;
+  --faint: #b3a89c;
+  --line: #3d362e;
+  --accent: #8fd4c6;
+  --accent-strong: #b7e6dc;
+  --paper: #221e1a;
+  --pass: #8fd4c6;
+  --pass-bg: #1a3330;
+  --fail: #f0b0a4;
+  --fail-bg: #3a2420;
+  --warn-bg: #3a2e1c;
+  --warn: #e8c98a;
+  --editor: #1b1815;
+  --gutter: #12100e;
+  --gutter-ink: #9a8e82;
+  --wash: rgba(255, 248, 236, 0.06);
+  --selected: rgba(255, 248, 236, 0.09);
+  --on-accent: #10221e;
+  --solution-bg: #0c0b0a;
+  --solution-ink: #f4efe6;
+  --glow: rgba(255, 236, 210, 0.05);
+  --selection: #2c4a44;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 * { box-sizing: border-box; }
@@ -29,7 +66,7 @@ html, body, #root { min-height: 100%; }
 body {
   margin: 0;
   background:
-    radial-gradient(900px 420px at 0% -10%, rgba(255, 252, 247, 0.8), transparent 55%),
+    radial-gradient(900px 420px at 0% -10%, var(--glow), transparent 55%),
     var(--bg);
   color: var(--ink);
   font-family: var(--sans);
@@ -48,7 +85,7 @@ button:disabled { cursor: default; opacity: 0.55; }
   outline-offset: 2px;
 }
 
-::selection { background: #d5ebe4; }
+::selection { background: var(--selection); }
 
 .sr-only {
   position: absolute;
@@ -105,6 +142,12 @@ button:disabled { cursor: default; opacity: 0.55; }
   font-size: 14px;
 }
 
+.header-actions {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
 .timer { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
 
 .timer-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
@@ -154,10 +197,10 @@ button:disabled { cursor: default; opacity: 0.55; }
   padding: 10px 12px;
 }
 
-.rail button:hover { background: rgba(255, 252, 247, 0.55); }
+.rail button:hover { background: var(--wash); }
 
 .rail button[aria-current="true"] {
-  background: rgba(255, 252, 247, 0.78);
+  background: var(--selected);
   box-shadow: inset 3px 0 0 var(--accent);
 }
 
@@ -255,11 +298,11 @@ code {
   border: 1px solid var(--line);
 }
 
-.ghost:hover:not(:disabled) { background: rgba(255, 252, 247, 0.8); }
+.ghost:hover:not(:disabled) { background: var(--wash); }
 
 .run {
   background: var(--accent);
-  color: #f7fbfa;
+  color: var(--on-accent);
   border: 1px solid var(--accent);
   font-weight: 500;
 }
@@ -276,7 +319,7 @@ code {
 .chip-on {
   background: var(--accent);
   border-color: var(--accent);
-  color: #f7fbfa;
+  color: var(--on-accent);
 }
 
 .editor {
@@ -304,7 +347,7 @@ code {
 
 .gutter {
   overflow: hidden;
-  color: #a3988b;
+  color: var(--gutter-ink);
   text-align: right;
   padding-left: 14px;
   padding-right: 12px;
@@ -464,8 +507,8 @@ code {
 
 .solution {
   margin: 12px 0 0;
-  background: #241f1a;
-  color: #f4efe6;
+  background: var(--solution-bg);
+  color: var(--solution-ink);
   border-radius: 12px;
   padding: 16px 18px;
   overflow: auto;
@@ -479,7 +522,8 @@ code {
 @media (max-width: 800px) {
   .topbar, .main { padding-left: 16px; padding-right: 16px; }
   .topbar { flex-direction: column; }
-  .timer, .timer-row { align-items: flex-start; justify-content: flex-start; }
+  .header-actions, .timer, .timer-row { align-items: flex-start; justify-content: flex-start; }
+  .header-actions { flex-wrap: wrap; }
   .workspace { grid-template-columns: minmax(0, 1fr); }
   .rail {
     min-width: 0;

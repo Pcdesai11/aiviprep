@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Breakdown } from "./components/Breakdown";
 import { Editor } from "./components/Editor";
 import { Results } from "./components/Results";
+import { ThemeToggle } from "./components/ThemeToggle";
 import { Timer } from "./components/Timer";
 import { drills } from "./drills";
 import { createRunner, type Runner } from "./runner/client";
@@ -134,7 +135,10 @@ export function App() {
           <p className="wordmark">AiviPrep</p>
           <p className="tagline">Practice for interviews that hand you broken code.</p>
         </div>
-        <Timer />
+        <div className="header-actions">
+          <ThemeToggle />
+          <Timer />
+        </div>
       </header>
       <div className="workspace">
         <nav className="rail" aria-label="Drills">
